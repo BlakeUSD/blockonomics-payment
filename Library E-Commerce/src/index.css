@@ -124,7 +124,7 @@ button:active {
 }
 
 .nav__link--primary {
-  border: 2px solid #7342d6;
+  border: 2px solid #697c37;
   border-radius: 4px;
 }
 
@@ -162,7 +162,7 @@ button:active {
   background-color: transparent;
   font-size: 32px;
   border: none;
-  color: #7342d6;
+  color: #697c37;
   display: none;
 }
 
@@ -413,7 +413,7 @@ FEATURES
 }
 
 .book__link {
-  color: #242424;
+  color: #697c37;
 }
 
 .book__img--wrapper {
@@ -536,7 +536,7 @@ select {
   justify-content: center;
   padding-top: 60px;
   font-size: 60px;
-  color: #7342d6;
+  color: #697c37;
 }
 
 .fa-spinner {
@@ -737,7 +737,7 @@ select {
 }
 
 .total__sub-total {
-  border-top: 2px solid #7342d6;
+  border-top: 2px solid #697c37;
   padding-top: 24px;
 }
 
