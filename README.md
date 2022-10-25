@@ -41,7 +41,7 @@ To get a local copy up and running follow these simple steps.
 git clone https://github.com/BlakeUSD/ecommerce-movies.git
 ```
 
-- Once the files are on your machine, open the **ecoommerce-movies** folder in [Visual Studio Code](https://code.visualstudio.com/download).
+- Once the files are on your machine, open the **ecommerce-movies** folder in [Visual Studio Code](https://code.visualstudio.com/download).
 
 ## Deploying
 
