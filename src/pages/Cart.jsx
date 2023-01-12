@@ -1,15 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import EmptyCart from '../assets/empty_cart.svg'
+import axios from 'axios'
 
-const Cart = ({ cart, changeQuantity, removeItem }) => {
-    const total =() => {
+const Cart = ({ cart, changeQuantity, removeItem, numberOfItems }) => {
+    const [email, setEmail] = useState("");
+    const [cartMetaData, setCartMetaData] = useState([{
+        productId: "",
+        productTitle: "",
+        productQuantity: null,
+        cartProductsQuantity: null,
+        cartAmount: null
+    }])
+    const [token, setToken] = useState(null)
+    const cartQuantityTotal = numberOfItems();
+
+
+    const total = () => {
         let price = 0;
         cart.forEach(item => {
             price += +((item.salePrice || item.originalPrice) * item.quantity)
         });
         return price;
-}
+    }
+
+    const handleEmailInput = (e) => {
+        setEmail(e.target.value)
+    }
+
+
+
+    const trackCartProducts = () => {
+        const productInfo = [];
+        const cartAmount = parseFloat(total().toFixed(2));
+        const cartToken = JSON.stringify(new Date().getTime())
+
+        cart.forEach(product => {
+            const cartDetails = {
+                productId: product.id,
+                productTitle: product.title,
+                productQuantity: product.quantity,
+                cartProductsQuantity: cartQuantityTotal,
+                cartAmount: cartAmount,
+            }
+
+            productInfo.push(cartDetails)
+        })
+        setToken(cartToken)
+        setCartMetaData(productInfo)
+    }
+
+    async function payWithBitcoin() {
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8000/cart',
+            data: {
+                dataOne: cartMetaData,
+                dataTwo: token
+            }
+        }).then(function (res) {
+
+            // eslint-disable-next-line no-undef
+            Blockonomics.widget({
+                msg_area: 'bitcoinpay',
+                uid: `${res.data}`,
+                email: email
+            })
+        }).catch(err => console.log(err))
+    }
+
     return (
         <div id="books__body">
             <main id="books__main">
@@ -37,7 +96,7 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                                                     </span>
                                                     <span className="cart__book--price">
                                                         ${bookPrice.toFixed(2)}</span>
-                                                        <button
+                                                    <button
                                                         className="cart__book--remove"
                                                         onClick={() => removeItem(book)}
                                                     >
@@ -62,7 +121,7 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                                 {(cart.length === 0) && (
                                     <div className="cart__empty">
                                         <img src={EmptyCart} alt="" className="cart__empty--img" />
-                                        <h2>You don't have any books in your cart!</h2>
+                                        <h2>You don't have any shows in your cart!</h2>
                                         <Link to="/books">
                                             <button className="btn">Browse shows</button>
                                         </Link>
@@ -83,12 +142,14 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                                 </div>
                                 <div className="total__item total__price">
                                     <span>Total</span>
-                                    <span>${(total()).toFixed(2)}</span>
+                                    <span>$<span>{(total()).toFixed(2)}</span></span>
                                 </div>
-                                <button className="btn btn__checkout no-cursor"
-                                    onClick={() => alert("Not yet implemented")} >
+                                <input required type="email" id="email" placeholder="Email Address" onInput={handleEmailInput} onChange={trackCartProducts} />
+                                <button className="btn btn__checkout"
+                                    onClick={() => { trackCartProducts(); payWithBitcoin() }} >
                                     Proceed to checkout
                                 </button>
+                                <div id="bitcoinpay"></div>
                             </div>
                         )}
                     </div>

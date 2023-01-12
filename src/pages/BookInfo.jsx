@@ -73,7 +73,7 @@ const BookInfo = ({ books, addToCart, cart }) => {
                     <div className="row">
                         <div className="book__selected--top">
                             <h2 className="book__selected--title--top">
-                                Recommended Books
+                                Recommended Shows
                             </h2>
                         </div>
                         <div className="books">
