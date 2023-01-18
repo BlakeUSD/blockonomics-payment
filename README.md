@@ -1,5 +1,5 @@
 # E-commerce movies
-This is a responsive and functional e-commerce movies app created with ReactJS and ExpressJS that showcases the Blockonomics API. Highlights:
+This is a responsive and functional e-commerce movies demo created with ReactJS and ExpressJS that showcases the Blockonomics Checkout API. Highlights:
 
 - Integrated Blockonomics API and Bitcoin checkout functionality.
 - Included the ability to add and remove movies from the cart. 
@@ -41,6 +41,10 @@ git clone https://github.com/BlakeUSD/blockonomics-payment.git
 ```
 
 - Once the files are on your machine, open the **blockonomics-checkout** folder in [Visual Studio Code](https://code.visualstudio.com/download).
+
+## Setting up Environment Configurations
+- In the index.js file, add database information to allow MySQL to connect to the database, fill in the DB_NAME and DB_PASSWORD options to match the credentials of the local database you created.
+- Place your Blockonomics API Key in the API_KEY field. This will allow the app to run migrations correctly.
 
 ## Deploying
 
